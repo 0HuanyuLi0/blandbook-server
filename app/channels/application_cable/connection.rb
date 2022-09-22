@@ -7,14 +7,38 @@ module ApplicationCable
   # def connect   
               
   
-  #   find_verified_user
+  #   find_verified_user 
   # end
  
-  #   private
+  # #   private
 
-  #   # ! https://itnext.io/actioncable-authentication-in-a-token-based-rails-api-f9cc4b8bf560
+  # #   # ! https://itnext.io/actioncable-authentication-in-a-token-based-rails-api-f9cc4b8bf560
 
-  # def find_verified_user  
+
+  # def find_verified_user   
+       
+  #   #   p '######findverifieduser(), token', token
+  #   token = request.headers[:HTTP_SEC_WEBSOCKET_PROTOCOL].split(' ').last 
+
+  #     p"----ABOUT TO DECODE---"
+  #     decoded_token = JWT.decode token, Rails.application.secrets.secret_key_base, true, {
+  #             :algorithm => 'HS256'
+  #     }
+  #     p "##############decoded  ",decoded_token
+  #       # if User.find(decoded_token[0]["sub"])
+  #       # p "------------------"
+  #       # p User.find(decoded_token[0]["sub"])
+  #       # p"----------WOWOWOWOW--------------"
+  #       # p current_user
+  #       if User.find(decoded_token[0]["sub"]) === current_user
+  #         p "* * * * * * *"
+  #         verify_user
+  #       end
+  #   #         @current_user
+  #   #   else                 
+  #   #   reject_unauthorized_connection
+  #   end #end FVU
+  # # def find_verified_user  
   #   p "#############################"
   #   p  request.headers[:HTTP_SEC_WEBSOCKET_PROTOCOL].split(' ')
   #   token = request.headers[:HTTP_SEC_WEBSOCKET_PROTOCOL].split(' ').last

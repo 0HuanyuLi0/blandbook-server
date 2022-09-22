@@ -1,6 +1,6 @@
 class ChatroomChannel < ApplicationCable::Channel
   
-  include Knock::Authenticable
+  # include Knock::Authenticable
    
   
   def subscribed
@@ -19,11 +19,11 @@ class ChatroomChannel < ApplicationCable::Channel
   def receive(data)
      p "##################"
     
-    verify_user= find_verified_user(data["token"])
+    # verify_user= find_verified_user(data["token"])
 
     ##See functions in connection 
     # @current_user = find_verified_user
-    @message = Message.create content: data["content"], user_id: verify_user.id, chatroom_id: data["chatroom_id"]
+    @message = Message.create content: data["content"], user_id: data["user_id"], chatroom_id: data["chatroom_id"]
 
 
     ChatroomChannel.broadcast_to("room_#{params[:room]}", @message)
