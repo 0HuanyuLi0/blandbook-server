@@ -4,11 +4,11 @@ module ApplicationCable
 
     # identified_by :current_user
  
-  # def connect   
+  def connect   
               
   
-  #   find_verified_user 
-  # end
+    # find_verified_user 
+  end
  
   # #   private
 
