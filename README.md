@@ -3,21 +3,21 @@
 
 ## A lightweight social media platform using React and Ruby on Rails
 
+## Find the main README [here](https://github.com/0HuanyuLi0/blandbook-frontend)  and visit the site on [HEROKU HERE](https://github.com/hwlei888) 
+
 **Authors**:
 
-- Huanyu Daniel Li (github link)
-- Lei Huawen (github link)
-- Brendan Tuckerman (github link)
+- Huanyu Daniel Li [Github](https://github.com/0HuanyuLi0)
+- Lei Huawen [Github](https://github.com/hwlei888)
+- Brendan Tuckerman [Github](https://github.com/MrMaverick79)
 
 A project as part of the General Assembly Software Intensive
 
 **Overview**:
 
-Blandbook is a social media platofrm that pulls together many of the features of sites like Facebook, Instagram, and Reddit. It allows users to set up an account, log in and see posts made by themsleves and other members of the platform. 
+Blandbook (named for Author **B**rendan, **L**ei **an**d **D**aniel), is a social media platfotm that lets people add posts, follow friends and use a simple chat function. It allows users to set up an account, log in and see posts made by themselves and other members of the platform. There is also a map component where you can see details of other users.
 
-
-**Features**:
-
+It is a full-stack web project that uses web-sockets to support chat messaging, alongside axios HTTP requests.
 
 
 **Tech Stack**:
@@ -27,50 +27,44 @@ Front-end: React, CSS
 Back-End: Ruby on Rails, PostgreSQL, ActiveRecord
 
 
+# Backend: 
 
-## Chat function 
+This project uses **Ruby on Rails** to support the CRUD application.
 
-
-
-Thanks to Jennifer Ingram for [this](https://javascript.plainenglish.io/integrating-actioncable-with-react-9f946b61556e)  tutorial which was a huge help.
-
-This part of the README aims to explain the chat function, which uses Rails' [ActionCable](https://guides.rubyonrails.org/action_cable_overview.html) --which replaces HTTP requests with WebSocket intergration
-
-Gems: 
- - 'rack-cors' (to avoid CORS errors )
- 
-NPM Packages:
- - 'axios' (needed elsewhere, but also used for HTTP requests)
- - 'actioncable' (to form the connection with ActionCable in the back end)
-
-# Backend
-
-We added the following route in our Rails routes file, which created a URL which we could use to form the connection between front and back-end:
-
-![Mount example](../planning/mount.png)
+The structure for the tables and associations can be found [here](https://www.canva.com/design/DAFMU6f9cGo/BB_iRekLYiRgK_jFtqQrcw/edit) in our original planning.
 
 
-Because we are not using HTTP requests, we instead need to create a channenl (app-->channels-->chatroom_channel). This channel allows the front-end (known as a consumer) to subscribe to channels in the back end. This allows us to transmit the infomration in as many of our chatrooms as needed. In the example below, we see that the channel controller uses `stream_for` and `broadcast_to` within the ActionCable class.
+## Features
 
-![chatroom_channel](../planning/chatroom_channel.png)
-
-
+- `ChatRoomChannel` uses ActionCable to control the WebSocket Connection with the front end. 
 
 
-# Read Me
+- Use of `Knock` gem to handle authentication in the front end. Many thanks to Chris Stevenson for the easy to follow [tutorial](https://github.com/Chris-Stevenson-Git/Knock-Example-Rails)
 
-- 18/Sep/2022
+- Use of `rack-cors` gem to avoid CORS errors.
 
-<img src="https://res.cloudinary.com/huanyuli/image/upload/v1663511861/blandBook/Screen_Shot_2022-09-18_at_11.55.11_pm_n5p7md.png">
+- Administration login for access to the backend
+
+- Complex associations for Followers / Following. Here we were about to use `through` associations:
+
+>  has_many :following_relationships, class_name: 'Follow', foreign_key: 'follower_id'
+>    has_many :followed_relationships,  class_name: 'Follow', foreign_key: 'followed_id'
+
+ >   has_many :following, through: :following_relationships, source: :followed
+  >  has_many :followers, through: :followed_relationships,  source: :follower
+
+## Future:
+
+- Decoding of JWT token connection needs to be refined.
+
+- Build out admin panel on the back end
 
 
-I rewrite the structure, now using `./components/Homepage.jsx` as the home page, but still keep the originial `App.js` code.
 
-The `Homepage.jsx` will use `state` to store `current user`, `search results`, `chat room` etc. information to easily shared with other components.
 
- - `current user` infomation gets from the component `./components/CurrentUserInfo.jsx`
- - `search results` infomation gets from the component `./components/SearchForm.jsx`   
-    *(Just search template at this stage, need to discuss what we need to do here)*
-- `chat room` infomation gets from the component `./components/ChatRoom.jsx`   
-    *(need to discuss how to use `ChatroomShow` component)*
+
+
+
+
+
 
