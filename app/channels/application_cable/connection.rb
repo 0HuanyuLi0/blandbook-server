@@ -1,61 +1,32 @@
 module ApplicationCable
   class Connection < ActionCable::Connection::Base
-    # require 'jwt'
-
-    # identified_by :current_user
+   
+    #On connection, ensure that the user is the correct one.
  
   def connect   
-              
-  
-    # find_verified_user 
+
+    find_verified_user 
   end
  
-  # #   private
+private
 
-  # #   # ! https://itnext.io/actioncable-authentication-in-a-token-based-rails-api-f9cc4b8bf560
+  # ! Thanks to  https://itnext.io/actioncable-authentication-in-a-token-based-rails-api-f9cc4b8bf560
 
 
-  # def find_verified_user   
-       
-  #   #   p '######findverifieduser(), token', token
-  #   token = request.headers[:HTTP_SEC_WEBSOCKET_PROTOCOL].split(' ').last 
+def find_verified_user   
 
-  #     p"----ABOUT TO DECODE---"
-  #     decoded_token = JWT.decode token, Rails.application.secrets.secret_key_base, true, {
-  #             :algorithm => 'HS256'
-  #     }
-  #     p "##############decoded  ",decoded_token
-  #       # if User.find(decoded_token[0]["sub"])
-  #       # p "------------------"
-  #       # p User.find(decoded_token[0]["sub"])
-  #       # p"----------WOWOWOWOW--------------"
-  #       # p current_user
-  #       if User.find(decoded_token[0]["sub"]) === current_user
-  #         p "* * * * * * *"
-  #         verify_user
-  #       end
-  #   #         @current_user
-  #   #   else                 
-  #   #   reject_unauthorized_connection
-  #   end #end FVU
-  # # def find_verified_user  
-  #   p "#############################"
-  #   p  request.headers[:HTTP_SEC_WEBSOCKET_PROTOCOL].split(' ')
-  #   token = request.headers[:HTTP_SEC_WEBSOCKET_PROTOCOL].split(' ').last
-  #  p '######findverifieduser(), token', token
-  # #         p"----ABOUT TO DECODE---"
-  #         decoded_token = JWT.decode token, Rails.application.secrets.secret_key_base, true, {
-  #           :algorithm => 'HS256'
-  #         }
-  #         p "##############decoded  ",decoded_token
-  #         if User.find(decoded_token[0]["sub"])
-  #           current_user
-  #         else                 
-  #           reject_unauthorized_connection
-  #         end
-  #       rescue
-  #         reject_unauthorized_connection  
-  #       end
-    # end #end find
+  token = request.headers[:HTTP_SEC_WEBSOCKET_PROTOCOL].split(" ").last
+  decoded_token = JWT.decode token, "secret", true, { :algorithm => "HS256" }
+  p "decoded-token", decoded_token
+  @current_user = User.find((decoded_token[0])["sub"])
+    if @current_user.present?
+      
+      @current_user
+    else
+      reject_unauthorized_connection
+    end
+  end
+
+ 
   end #end method
 end #end class

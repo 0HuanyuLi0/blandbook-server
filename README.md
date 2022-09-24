@@ -3,7 +3,7 @@
 
 ## A lightweight social media platform using React and Ruby on Rails
 
-## Find the main README [here](https://github.com/0HuanyuLi0/blandbook-frontend)  and visit the site on [HEROKU HERE](https://github.com/hwlei888) 
+## Find the main README [here](https://github.com/0HuanyuLi0/blandbook-frontend)  and visit the site on [HEROKU HERE](https://0huanyuli0.github.io/blandbook-frontend/#/) 
 
 **Authors**:
 
