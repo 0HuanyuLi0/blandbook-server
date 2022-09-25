@@ -13,15 +13,16 @@ class MessagesController < ApplicationController
     @chatroom = Chatroom.find message_params["chatroom_id"]
 
     if @message.save
-        ChatroomChannel.broadcast_to( @chatroom, {
+        # ChatroomChannel.broadcast_to( @chatroom, {
 
-          chatroom: ChatroomSerializer.new(@chatroom),
-          users: UserSerializer.new(@chatroom.users),
-          messages: MessageSerializer.new(@chatroom.messages)
+        #   chatroom: ChatroomSerializer.new(@chatroom),
+        #   users: UserSerializer.new(@chatroom.users),
+        #   messages: MessageSerializer.new(@chatroom.messages)
 
-        })
+        # })
+        render json: @message
     end #end if
-      render json: MessageSerializer.new(@message) 
+      # render json: MessageSerializer.new(@message) 
       
       
   end
